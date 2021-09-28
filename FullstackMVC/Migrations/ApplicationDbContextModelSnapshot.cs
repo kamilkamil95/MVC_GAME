@@ -18,7 +18,22 @@ namespace FullstackMVC.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("FullstackMVC.Models.MonsterType", b =>
+            modelBuilder.Entity("FullstackMVC.Models.ApplicationTypeModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationType");
+                });
+
+            modelBuilder.Entity("FullstackMVC.Models.MonsterTypeModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
