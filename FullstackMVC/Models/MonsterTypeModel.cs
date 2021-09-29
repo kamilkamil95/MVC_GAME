@@ -10,6 +10,7 @@ namespace FullstackMVC.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         [Range(1,int.MaxValue,ErrorMessage ="Display Order for Monster Name must be grater than 0")]    
         public int DisplayOrder { get; set; }

@@ -1,10 +1,10 @@
-﻿@model MonsterTypeModel
+﻿@model MapModel
 
 <form method="post">
     <input asp-for="Id" hidden />
     <div class="border p-3">
         <div class="form-group row">
-            <h2 class="text-info pl-3">Edit Monster Type</h2>
+            <h2 class="text-info pl-3">Edit Map </h2>
         </div>
         <div class="row">
             <div class="col-8">
@@ -17,15 +17,7 @@
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="DisplayOrder"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="DisplayOrder" class="form-control" />
-                        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
-                    </div>
+                </div>    
 
                 </div>
                 <div class="form-group row">
@@ -35,7 +27,7 @@
                             <input type="submit" class="btn btn-info w-100" value="Update" />
                         </div>
                         <div class="col">
-                            <a asp-action="Index" class="btn btn-success"> <i class="fas fa-sign-out-alt"></i>  Back </a>
+                            <a asp-action="Index" class="btn btn-success"> <i class="fas fa-sign-out-alt"> </i> </a>
 
                         </div>
                     </div>
@@ -45,7 +37,6 @@
                 @* Keep this empty *@
             </div>
         </div>
-    </div>
 </form>
 
 @section Scripts{

@@ -1,0 +1,122 @@
+﻿@model MonsterVM
+
+<form method="post" formenctype="multipart/form-data">
+
+    @{
+        var title = "Create Monster";
+    }
+
+    @if (Model.Monster.Id != 0)
+    {
+        title = "Edit Monster";
+        <input asp-for="Monster.Id" hidden />
+    }
+
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">@title</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Monster.Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Monster.Name" class="form-control" />
+                        <span asp-validation-for="Monster.Name" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Monster.Hp"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Monster.Hp" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Monster.DmgMin"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Monster.DmgMin" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Monster.DmgMax"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Monster.DmgMax" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        Image
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox" multiple asp-for="Monster.Message" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Monster.MonsterModelId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Monster.MonsterModelId" asp-items="@Model.MonsterTypeSelectList" class="form-control">
+                            <option disabled selected>--Select Monster Type--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Monster.Message"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Monster.Message" class="form-control" />
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+                            @if (Model.Monster.Id != 0)
+                            {
+                                <input type="submit" class="btn btn-info w-100" value="Update" />
+
+                            }
+                            else
+                            {
+                                <input type="submit" onclick=" return validateInput()" class="btn btn-primary w-100" value="Create" />
+                            }
+
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success"> <i class="fas fa-sign-out-alt"></i>  Back </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @* Keep this empty *@
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    <partial name="_ValidationScriptsPartial" />
+
+}
