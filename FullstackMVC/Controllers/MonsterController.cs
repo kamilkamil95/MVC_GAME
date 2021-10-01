@@ -14,7 +14,6 @@ namespace FullstackMVC.Controllers
 {
     public class MonsterController : Controller
     {
-
         private readonly ApplicationDbContext _db;
         private readonly IWebHostEnvironment _webHostEnvironment;
         public MonsterController(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
@@ -25,18 +24,11 @@ namespace FullstackMVC.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<MonsterModel> MonsterList = _db.MonsterModel;
-
-            foreach (var item in MonsterList)
-            {
-                item.MonsterTypeModel = _db.MonsterType.FirstOrDefault(u => u.Id == item.MonsterTypeModel.Id);
-                item.MapModel = _db.MapModel.FirstOrDefault(u => u.Id == item.MapModel.Id);
-            }
+            IEnumerable<MonsterModel> MonsterList = _db.MonsterModel.Include(x=>x.MonsterTypeModel).Include(x=>x.MapModel);
 
             return View(MonsterList);
         }
 
-        //GET - UPSERT
         [HttpGet]
         public IActionResult Upsert(int? id)
         {
@@ -44,6 +36,11 @@ namespace FullstackMVC.Controllers
             {
                 Monster = new MonsterModel(),
                 MonsterTypeSelectList = _db.MonsterType.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }),
+                MapSelectList = _db.MapModel.Select(x => new SelectListItem
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
@@ -107,7 +104,6 @@ namespace FullstackMVC.Controllers
                         }
                         monsterVM.Monster.Image = fileName + extension;
                     }
-
                     else
                     {
                         monsterVM.Monster.Image = dbObject.Image;
@@ -146,7 +142,12 @@ namespace FullstackMVC.Controllers
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
-                })
+                }),
+                MapSelectList = _db.MapModel.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }),
             };
             if (obj == null)
             {
@@ -154,8 +155,7 @@ namespace FullstackMVC.Controllers
             }
             return View(monsterVM);
         }
-
-        //post delete
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost (int? id)
@@ -181,6 +181,5 @@ namespace FullstackMVC.Controllers
                 _db.SaveChanges();
                 return RedirectToAction("Index");     
         }
-
     }
 }
