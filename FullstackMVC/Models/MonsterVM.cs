@@ -8,8 +8,10 @@ namespace FullstackMVC.Models
 {
     public class MonsterVM
     {
-        public MonsterModel Monster { get; set; }
+       public MonsterModel Monster { get; set; }
        public IEnumerable<SelectListItem> MonsterTypeSelectList { get; set; }
+       public IEnumerable<SelectListItem> MapSelectList { get; set; }
+        
 
     }
 }

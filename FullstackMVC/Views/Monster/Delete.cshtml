@@ -1,20 +1,11 @@
 ﻿@model MonsterVM
 
-<form method="post" enctype="multipart/form-data">
-
-    @{
-        var title = "Create Monster";
-    }
-
-    @if (Model.Monster.Id != 0)
-    {
-        title = "Edit Monster";
-        <input asp-for="Monster.Id" hidden />
-    }
+<form method="post" asp-action="DeletePost" enctype="multipart/form-data">
+    <input asp-for="Monster.Id" hidden />
 
     <div class="border p-3">
         <div class="form-group row">
-            <h2 class="text-info pl-3">@title</h2>
+            <h2 class="text-info pl-3">Delete Monster</h2>
         </div>
         <div class="row">
             <div class="col-8">
@@ -24,7 +15,7 @@
                         <label asp-for="Monster.Name"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Monster.Name" class="form-control" />
+                        <input disabled asp-for="Monster.Name" class="form-control" />
                         <span asp-validation-for="Monster.Name" class="text-danger"></span>
                     </div>
 
@@ -35,7 +26,7 @@
                         <label asp-for="Monster.Hp"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Monster.Hp" class="form-control" />
+                        <input disabled asp-for="Monster.Hp" class="form-control" />
                     </div>
                 </div>
 
@@ -44,7 +35,7 @@
                         <label asp-for="Monster.DmgMin"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Monster.DmgMin" class="form-control" />
+                        <input disabled asp-for="Monster.DmgMin" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -52,7 +43,7 @@
                         <label asp-for="Monster.DmgMax"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Monster.DmgMax" class="form-control" />
+                        <input disabled asp-for="Monster.DmgMax" class="form-control" />
                     </div>
                 </div>
 
@@ -61,7 +52,7 @@
                         Image
                     </div>
                     <div class="col-8">
-                        <input type="file" name="files" id="uploadBox" multiple class="form-control" />
+                        <input disabled type="file" name="files" id="uploadBox" multiple class="form-control" />
                     </div>
                 </div>
 
@@ -70,20 +61,18 @@
                         <label asp-for="Monster.MonsterModelId"></label>
                     </div>
                     <div class="col-8">
-                        <select asp-for="Monster.MonsterModelId" asp-items="@Model.MonsterTypeSelectList" class="form-control">
+                        <select disabled asp-for="Monster.MonsterModelId" asp-items="@Model.MonsterTypeSelectList" class="form-control">
                             <option disabled selected>--Select Monster Type--</option>
                         </select>
                     </div>
                 </div>
-
-            
 
                 <div class="form-group row">
                     <div class="col-4">
                         <label asp-for="Monster.Message"></label>
                     </div>
                     <div class="col-8">
-                        <textarea asp-for="Monster.Message" class="form-control summernote"></textarea>
+                        <textarea disabled asp-for="Monster.Message" class="form-control summernote"></textarea>
                     </div>
                 </div>
 
@@ -94,7 +83,7 @@
                         <div class="col">
                             @if (Model.Monster.Id != 0)
                             {
-                                <input type="submit" class="btn btn-info w-100" value="Update" />
+                                <input asp-route-Id="@Model.Monster.Id"  asp-action="DeletePost" type="submit" class="btn btn-danger w-100" value="Delete" />
 
                             }
                             else
@@ -104,7 +93,7 @@
 
                         </div>
                         <div class="col">
-                            <a asp-action="Index" class="btn btn-success"> <i class="fas fa-sign-out-alt"></i>  Back </a>
+                            <a asp-action="Index" class="btn btn-info"> <i class="fas fa-sign-out-alt"></i>  Back </a>
 
                         </div>
                     </div>
@@ -125,9 +114,9 @@
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
-          
+
     }
-<script>
+    <script>
     $(document).ready(function () {
         $('.summernote').summernote(
             {
@@ -148,7 +137,7 @@
         }
         return true;
     }
-</script>
+    </script>
 
 
 
