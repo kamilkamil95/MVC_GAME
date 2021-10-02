@@ -94,7 +94,7 @@
                         <label asp-for="Monster.Message"></label>
                     </div>
                     <div class="col-8">
-                        <textarea asp-for="Monster.Message" class="form-control summernote"></textarea>
+                        <textarea asp-for="Monster.Message" class="form-control"></textarea>
                     </div>
                 </div>
 
@@ -139,14 +139,6 @@
           
     }
 <script>
-    $(document).ready(function () {
-        $('.summernote').summernote(
-            {
-                height:200
-                }
-                );
-    });
-
     function validateInput()
     {
         if (document.getElementById("uploadBox").value=="") {

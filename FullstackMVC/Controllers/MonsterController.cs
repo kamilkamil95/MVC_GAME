@@ -102,6 +102,7 @@ namespace FullstackMVC.Controllers
                         {
                             files[0].CopyTo(fileStream);
                         }
+
                         monsterVM.Monster.Image = fileName + extension;
                     }
                     else
