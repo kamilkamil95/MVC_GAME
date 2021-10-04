@@ -19,7 +19,13 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                    <partial name="_LoginPartial" />
+
+
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
@@ -37,9 +43,14 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Monster" asp-action="Index">Monster</a>
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Map" asp-action="Index">Map</a>
                                 <a class="nav-link text-dark" asp-area="" asp-controller="MonsterType" asp-action="Index">MonsterType</a>
+                                <div class="dropdown-divider"></div>
+                                @if (User.IsInRole(Consts.AdminRole))
+                                {
+                                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Create Admin</a>
+                                }
 
 
-                                
+
                             </div>
                         </li>
 

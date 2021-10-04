@@ -7,8 +7,9 @@ namespace FullstackMVC
 {
     public static class Consts
     {
-
-
         public static string ImagePath = @"\images\monster\";
+        public static string AdminRole = "Admin";
+        public static string UserRole = "User";
+
     }
 }

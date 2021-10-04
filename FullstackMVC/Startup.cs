@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using FullstackMVC.Engine;
-
+using Microsoft.AspNetCore.Identity;
 namespace FullstackMVC
 {
     public class Startup
@@ -25,6 +25,10 @@ namespace FullstackMVC
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<IdentityUser,IdentityRole>()
+            .AddDefaultTokenProviders().AddDefaultUI()    
+            .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
 
@@ -47,10 +51,11 @@ namespace FullstackMVC
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
