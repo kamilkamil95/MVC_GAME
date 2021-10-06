@@ -27,7 +27,7 @@ namespace FullstackMVC
                 Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<IdentityUser,IdentityRole>()
-            .AddDefaultTokenProviders().AddDefaultUI()    
+            .AddDefaultTokenProviders().AddDefaultUI()  
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();

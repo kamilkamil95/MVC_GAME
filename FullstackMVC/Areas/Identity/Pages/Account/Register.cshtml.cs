@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using FullstackMVC.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -83,7 +84,7 @@ namespace FullstackMVC.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUserModel { UserName = Input.Email, Email = Input.Email};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -92,13 +93,12 @@ namespace FullstackMVC.Areas.Identity.Pages.Account
                         await _userManager.AddToRoleAsync(user, Consts.AdminRole);
                     }
 
-                    if (User.IsInRole(Consts.UserRole))
+                    else 
                     {
                         await _userManager.AddToRoleAsync(user, Consts.UserRole);
                     }
 
-                    await _userManager.AddToRoleAsync(user, Consts.AdminRole);
-
+                   
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

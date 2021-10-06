@@ -20,6 +20,9 @@ namespace FullstackMVC.Data
         public DbSet<MonsterTypeModel> MonsterType { get; set; }
         public DbSet<MapModel> MapModel { get; set; }
         public DbSet<MonsterModel> MonsterModel { get; set; }
+        public DbSet<CharacterModel> CharacterModel { get; set; }
+        public DbSet<ItemModel> ItemModel { get; set; }
+        public DbSet<ApplicationUserModel> ApplicationUserModel { get; set; }
 
     }
 }

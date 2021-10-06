@@ -24,11 +24,14 @@ namespace FullstackMVC.Controllers
 
         public IActionResult Index()
         {
+          
+
             HomeVM homeVM = new HomeVM()
             {
                 Monsters = _db.MonsterModel.Include(x => x.MapModel).Include(y => y.MonsterTypeModel),
                 MonsterTypes = _db.MonsterType,
                 Map = _db.MapModel
+                
             };
             return View(homeVM);
         }

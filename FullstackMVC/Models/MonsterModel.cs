@@ -20,6 +20,12 @@ namespace FullstackMVC.Models
         public string Image { get; set; }
         public string Message { get; set; }
 
+        public int GoldenCoins
+        {
+            get { return this.Hp / 10 * this.DmgMin / 3; }
+            set {}
+        }
+
         [Display(Name="Monster Type")]
         public int MonsterModelId { get; set; }
         [ForeignKey("MonsterModelId")]

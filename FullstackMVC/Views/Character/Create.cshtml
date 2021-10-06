@@ -1,0 +1,89 @@
+﻿@model CharacterModel
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        <div asp-validation-summary="ModelOnly" class="text_danger"></div>
+
+        <input asp-for="Id" hidden />
+
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Create New Character</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="CharacterName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="CharacterName" class="form-control" />
+                        <span asp-validation-for="CharacterName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Dmg"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Dmg" class="form-control" />
+                        <span asp-validation-for="Dmg" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Health"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Health" class="form-control" />
+                        <span asp-validation-for="Health" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Job"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Job" class="form-control">
+                            <option>Select Gender</option>
+                            <option>Knight</option>
+                            <option>Archer</option>
+                            <option>Mage</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-100" value="Create" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success"> Back </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-4">
+                @* Keep this empty *@
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

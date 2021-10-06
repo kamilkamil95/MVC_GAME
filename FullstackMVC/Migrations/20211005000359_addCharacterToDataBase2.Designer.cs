@@ -4,14 +4,16 @@ using FullstackMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FullstackMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211005000359_addCharacterToDataBase2")]
+    partial class addCharacterToDataBase2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,9 +38,6 @@ namespace FullstackMVC.Migrations
                     b.Property<int>("Dmg")
                         .HasColumnType("int");
 
-                    b.Property<int>("GoldenCoins")
-                        .HasColumnType("int");
-
                     b.Property<int>("Health")
                         .HasColumnType("int");
 
@@ -47,9 +46,6 @@ namespace FullstackMVC.Migrations
 
                     b.Property<string>("Job")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
 
                     b.Property<int>("Strength")
                         .HasColumnType("int");
@@ -230,10 +226,6 @@ namespace FullstackMVC.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -285,8 +277,6 @@ namespace FullstackMVC.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -369,18 +359,6 @@ namespace FullstackMVC.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("FullstackMVC.Models.ApplicationUserModel", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("CharacterId");
-
-                    b.HasDiscriminator().HasValue("ApplicationUserModel");
-                });
-
             modelBuilder.Entity("FullstackMVC.Models.ItemModel", b =>
                 {
                     b.HasOne("FullstackMVC.Models.CharacterModel", null)
@@ -456,17 +434,6 @@ namespace FullstackMVC.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FullstackMVC.Models.ApplicationUserModel", b =>
-                {
-                    b.HasOne("FullstackMVC.Models.CharacterModel", "Character")
-                        .WithMany()
-                        .HasForeignKey("CharacterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Character");
                 });
 
             modelBuilder.Entity("FullstackMVC.Models.CharacterModel", b =>

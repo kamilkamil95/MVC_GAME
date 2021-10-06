@@ -49,6 +49,10 @@
                                     <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Create Admin</a>
                                 }
 
+                                else if (User.IsInRole(Consts.UserRole) )
+                                {
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Character" asp-action="Index">My Character</a>
+                                }
 
 
                             </div>

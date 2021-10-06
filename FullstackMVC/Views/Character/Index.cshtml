@@ -1,0 +1,36 @@
+﻿@model ApplicationUserModel
+
+
+<div class="card bg-white rounded shadow-sm" style="border:2px solid #222">
+    <div class="card-body px-3 pt-3 pb-1 row">
+        <div class="col-4 text-info"><label class="h2 float-left">@Model.Character.CharacterName </label></div>
+        <div class="col-5"><label class="float-right"><span class="text-info h2">HP: @Model.Character.Job</span></label> </div>
+    </div>
+
+
+
+    @if (Model.Character.Job == "Knight")
+    {
+        <img class="card-img-top img-fluid d-block mx-auto mb-3" style="width:50%; height:50%" src="@Consts.ImagePath@Consts.KnightImg" alt="Card image cap">
+    }
+    else if (Model.Character.Job == "Archer")
+    {
+        <img class="card-img-top img-fluid d-block mx-auto mb-3" style="width:50%; height:50%" src="@Consts.ImagePath@Consts.ArcherImg" alt="Card image cap">
+    }
+    else if (Model.Character.Job == "Mage")
+    {
+        <img class="card-img-top img-fluid d-block mx-auto mb-3" style="width:50%; height:50%" src="@Consts.ImagePath@Consts.MageImg" alt="Card image cap">
+    }
+
+    <div class="card-body p-1 px-3 row">
+        <div class="col-6">
+            <span class="badge p-3 border w-100" style="background-color:lavenderblush">@Model.Character.Health</span>
+        </div>
+        <div class="col-6 border-0">
+            <span class="badge p-3 border w-100" style="background-color:aliceblue">@Model.Character.GoldenCoins</span>
+        </div>
+    </div>
+
+
+
+</div>
