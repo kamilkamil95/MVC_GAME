@@ -15,6 +15,7 @@ namespace FullstackMVC.Controllers
     public class MonsterController : Controller
     {
         private readonly ApplicationDbContext _db;
+
         private readonly IWebHostEnvironment _webHostEnvironment;
         public MonsterController(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
         {

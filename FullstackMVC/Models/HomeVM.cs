@@ -7,8 +7,6 @@ namespace FullstackMVC.Models
 {
     public class HomeVM
     {
-
-
         public IEnumerable<MonsterModel> Monsters { get; set; }
         public IEnumerable<MonsterTypeModel> MonsterTypes { get; set; }
         public IEnumerable<MapModel> Map{ get; set; }

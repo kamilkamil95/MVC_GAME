@@ -4,14 +4,16 @@ using FullstackMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FullstackMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211009210137_addbattlelogertodatabase")]
+    partial class addbattlelogertodatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,18 +28,10 @@ namespace FullstackMVC.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BattleLoggerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FightId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Message")
+                    b.Property<string>("BattleMessage")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BattleLoggerId");
 
                     b.ToTable("BattleLogger");
                 });
@@ -67,10 +61,9 @@ namespace FullstackMVC.Migrations
                     b.Property<string>("ImageUser")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MonsterName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("BattleLoggerId");
 
                     b.ToTable("BattleViewModel");
                 });
@@ -437,11 +430,15 @@ namespace FullstackMVC.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUserModel");
                 });
 
-            modelBuilder.Entity("FullstackMVC.Models.BattleLogger", b =>
+            modelBuilder.Entity("FullstackMVC.Models.BattleViewModel", b =>
                 {
-                    b.HasOne("FullstackMVC.Models.BattleViewModel", null)
-                        .WithMany("BattleLogger")
-                        .HasForeignKey("BattleLoggerId");
+                    b.HasOne("FullstackMVC.Models.BattleLogger", "BattleLogger")
+                        .WithMany()
+                        .HasForeignKey("BattleLoggerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BattleLogger");
                 });
 
             modelBuilder.Entity("FullstackMVC.Models.ItemModel", b =>
@@ -528,11 +525,6 @@ namespace FullstackMVC.Migrations
                         .HasForeignKey("CharacterId");
 
                     b.Navigation("Character");
-                });
-
-            modelBuilder.Entity("FullstackMVC.Models.BattleViewModel", b =>
-                {
-                    b.Navigation("BattleLogger");
                 });
 
             modelBuilder.Entity("FullstackMVC.Models.CharacterModel", b =>

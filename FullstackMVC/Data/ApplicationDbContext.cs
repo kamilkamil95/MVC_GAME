@@ -23,6 +23,8 @@ namespace FullstackMVC.Data
         public DbSet<CharacterModel> CharacterModel { get; set; }
         public DbSet<ItemModel> ItemModel { get; set; }
         public DbSet<ApplicationUserModel> ApplicationUserModel { get; set; }
+        public DbSet<BattleViewModel> BattleViewModel { get; set; }
+        public DbSet<BattleLogger> BattleLogger { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FullstackMVC.Data;
+using FullstackMVC.Engine;
 using FullstackMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,8 @@ namespace FullstackMVC.Controllers
         {
             _logger = logger;
             _db = db;
+            
+
         }
 
         public IActionResult Index()
@@ -43,9 +46,23 @@ namespace FullstackMVC.Controllers
 
         [HttpGet]
         public IActionResult Attack(int? id)
-        {
+        {    
+          var currentUser = _db.ApplicationUserModel.FirstOrDefault(x => x.UserName == User.Identity.Name);
+          currentUser.Character = _db.CharacterModel.FirstOrDefault(x => x.Id == currentUser.CharacterId);
+          var monster = _db.MonsterModel.FirstOrDefault(x => x.Id == id);
 
-            return View();
+          BattleSystem battle = new BattleSystem(currentUser, monster);
+          BattleViewModel BattleViewModel = battle.Battle();
+
+            currentUser.Character.GoldenCoins =  currentUser.Character.GoldenCoins + BattleViewModel.GoldenCoins;
+
+            _db.Update(
+                currentUser.Character
+                );
+
+            _db.SaveChanges();
+
+            return View(BattleViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

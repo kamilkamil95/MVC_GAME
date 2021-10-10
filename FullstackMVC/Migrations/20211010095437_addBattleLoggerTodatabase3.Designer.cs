@@ -4,14 +4,16 @@ using FullstackMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FullstackMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211010095437_addBattleLoggerTodatabase3")]
+    partial class addBattleLoggerTodatabase3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,9 +67,6 @@ namespace FullstackMVC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MonsterName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
