@@ -20,6 +20,17 @@ namespace FullstackMVC.Models
         public string Image { get; set; }
         public string Message { get; set; }
 
+        public int Experience
+        {
+            get
+            {
+                Random random = new Random();
+                return (random.Next(1, 6)) * Hp - DmgMin;
+            }
+
+            set { }
+        }
+        
         public int GoldenCoins
         {
             get { return this.Hp / 10 * this.DmgMin / 3; }

@@ -50,14 +50,19 @@ namespace FullstackMVC.Controllers
           var currentUser = _db.ApplicationUserModel.FirstOrDefault(x => x.UserName == User.Identity.Name);
           currentUser.Character = _db.CharacterModel.FirstOrDefault(x => x.Id == currentUser.CharacterId);
           var monster = _db.MonsterModel.FirstOrDefault(x => x.Id == id);
+          monster.MapModel = _db.MapModel.FirstOrDefault(x => x.Id == monster.MapModelId);
+          monster.MonsterTypeModel = _db.MonsterType.FirstOrDefault(x => x.Id == monster.MonsterModelId);
 
           BattleSystem battle = new BattleSystem(currentUser, monster);
           BattleViewModel BattleViewModel = battle.Battle();
 
             currentUser.Character.GoldenCoins =  currentUser.Character.GoldenCoins + BattleViewModel.GoldenCoins;
+            currentUser.Character.Experience = currentUser.Character.Experience + BattleViewModel.ExperienceMonster;
+          //  int currentExperience = LevelUpdater.CalculateLevel(currentUser.Character.Experience);
+          //  currentUser.Character.Level = currentExperience;
 
             _db.Update(
-                currentUser.Character
+                currentUser.Character                
                 );
 
             _db.SaveChanges();

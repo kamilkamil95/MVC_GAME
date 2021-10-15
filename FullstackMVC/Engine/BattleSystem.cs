@@ -11,9 +11,9 @@ namespace FullstackMVC.Engine
     {
         private ApplicationUserModel _user;
         private MonsterModel _monster;
-        private List<string> _battleloggerStorage = new List<string>();
+        private List<string> _battleloggerStorage = new List<string>();   
         private List<BattleLogger> _battleLoggerList = new List<BattleLogger>();
-
+        private List<FightStatus> _fightStatus = new List<FightStatus>();
 
         public BattleSystem(ApplicationUserModel user, MonsterModel monster)
         {
@@ -22,29 +22,33 @@ namespace FullstackMVC.Engine
         }
 
         public BattleViewModel Battle()
-        {          
+        {
+            int Experience = _monster.Experience;
             int UserDmg = _user.Character.Strength;
             int MonsterHp = _monster.Hp;
             int UserHp = _user.Character.Health;
-            int gold = _monster.GoldenCoins;
-
+            int Gold = _monster.GoldenCoins;
+             
             while (MonsterHp >= 0 || UserHp >= 0)
             {
                 Random random = new Random();
                 var MonsterDmg = random.Next(_monster.DmgMin, _monster.DmgMax);
                 _battleloggerStorage.Add($"Monster dealt {MonsterDmg} Dmg.");
                 UserHp = UserHp - MonsterDmg;
+                _fightStatus.Add(new FightStatus() { PlayerHp = UserHp, MonsterHp = MonsterHp });
                 _battleloggerStorage.Add($"User HP left: {UserHp}");
-                if (UserHp < 0)
+                if (UserHp <= 0)
                 {
                     _battleloggerStorage.Add("Monster Won");
-                    gold =  0;
+                    Experience = 0;
+                    Gold =  0;
                     break;
                 }
-                if (MonsterHp > 0)
+                if (MonsterHp >= 0)
                 {
                     _battleloggerStorage.Add($"{_user.Character.CharacterName} dealt {UserDmg} Dmg.");
                     MonsterHp = MonsterHp - UserDmg;
+                    _fightStatus.Add(new FightStatus() { PlayerHp = UserHp,MonsterHp = MonsterHp });
                     _battleloggerStorage.Add($"Monster HP left: {MonsterHp}");
                     if (MonsterHp < 0)
                     {
@@ -62,14 +66,20 @@ namespace FullstackMVC.Engine
                 });
             }
 
+           
             return new BattleViewModel()
             {
                 CharacterName = _user.Character.CharacterName,
                 MonsterName = _monster.Name,
                 DropIndex = 3,
-                GoldenCoins = gold,
-                ImageMonster = "sasa",
-                BattleLogger = _battleLoggerList
+                GoldenCoins = Gold,
+                ImageMonster = _monster.Image,
+                Map = _monster.MapModel.Name,
+                MonsterType = _monster.MonsterTypeModel.Name,
+                ImageUser = $"{_user.Character.Job}.png",
+                BattleLogger = _battleLoggerList,
+                FightStatus = _fightStatus,
+                ExperienceMonster = Experience,
             };  
         }
     }

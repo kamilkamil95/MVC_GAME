@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@using FullstackMVC.Utility
+@using FullstackMVC.Data
+
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ApplicationDbContext _db
+
+
+
+
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,6 +21,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/fontawesome/css/all.css" />
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    
 
 </head>
 <body>
@@ -22,9 +36,21 @@
 
 
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-
                     <partial name="_LoginPartial" />
 
+                    @{
+                        if (User.IsInRole(Consts.UserRole))
+                        {
+                           var currentUser = _db.ApplicationUserModel.FirstOrDefault(x => x.UserName == User.Identity.Name);
+                            currentUser.Character = _db.CharacterModel.FirstOrDefault(x => x.Id == currentUser.CharacterId);
+
+                            @currentUser.Character.Experience <i class="fas fa-arrow-up " style="padding-left:25px; padding-right:10px"></i>
+                            @currentUser.Character.GoldenCoins <i class="fas fa-coins" style="padding-left:25px; padding-right:10px;"></i>
+                            <i>Lv.</i> @currentUser.Character.Level;
+                        }
+
+
+                    }
 
                     <ul class="navbar-nav flex-grow-1">
 
@@ -49,20 +75,25 @@
                                     <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Create Admin</a>
                                 }
 
-                                else if (User.IsInRole(Consts.UserRole) )
+                                else if (User.IsInRole(Consts.UserRole))
                                 {
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Character" asp-action="Index">My Character</a>
                                 }
-
-
                             </div>
+
                         </li>
 
 
                     </ul>
+
                 </div>
             </div>
         </nav>
+
+
+
+
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">

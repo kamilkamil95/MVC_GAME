@@ -1,25 +1,64 @@
 ﻿@model BattleViewModel
 
 
-<div class="card bg-white rounded shadow-sm" style="border:2px solid #222">
-    <div class="card-body px-3 pt-3 pb-1 row">
-        <div class="col-4 text-info"><label class="h2 float-left">@Model.CharacterName </label></div>
-        <div class="col-5"><label class="float-right"><span class="text-info h2"> @Model.MonsterName</span></label> </div>
+<div class="card bg-light rounded shadow-sm" style="border:2px solid #000000">
+    <div class="   row">
+        <div class="col-sm  text-center"><label class="h2 ml-3">@Model.CharacterName </label></div>
+        <div class="col-sm text-center"><label class=""><span class=" h2"> @Model.MonsterName</span></label> </div>
+    </div>
+    <div style="background-color:gray;">
+        @{
+            int PlayerHealth = Model.FightStatus.LastOrDefault().PlayerHp < 0 ? 0 : Model.FightStatus.LastOrDefault().PlayerHp;
+            int MonsterHealth = Model.FightStatus.LastOrDefault().MonsterHp < 0 ? 0 : Model.FightStatus.LastOrDefault().MonsterHp;
+        }
+
+    </div>
+
+    <div class="card bg-white rounded shadow-sm" style="border:2px solid #222">
+        <div class="card-body px-3 pt-3 pb-1 row">
+            <img class="card-img-top img-fluid d-block mx-auto mb-3" style="width:350px; height:350px" src="@Consts.ImagePath@Model.ImageUser" alt="Card image cap">
+            <p class=" h1  pt-5 mt-xl-5">VS</p>
+            <img class="card-img-top img-fluid d-block mx-auto mb-3" style="width:350px; height:350px" src="@Consts.ImagePath@Model.ImageMonster" alt="Card image cap">
+        </div>
+        <div class="card-body p-1 px-3 row">
+            <div class="col-6">
+                <span class="badge  border w-100 " style="background-color:lavenderblush; font-size:1.6em;">HP LEFT: @PlayerHealth</span>
+                <div class="row">
+                    <div class="col-sm">
+                        <span class="badge border w-100 display-4" style="background-color: lightyellow; font-size: 1.0em;"> Golden Coins: @Model.GoldenCoins </span>
+                    </div>
+                    <div class="col-sm">
+                        <span class="badge border w-100 display-4" style="background-color: lightblue; font-size: 1.0em;"> Experience: @Model.ExperienceMonster</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 border-0">
+
+                <span class="badge border w-100 display-4" style="background-color: lavenderblush; font-size: 1.6em;">HP LEFT: @MonsterHealth</span>
+                <div class="row">
+                    <div class="col-sm">
+                        <span class="badge border w-100 display-4" style="background-color: lightcyan; font-size: 1.0em;"> @Model.Map </span>
+                    </div>
+                    <div class="col-sm">
+                        <span class="badge border w-100 display-4" style="background-color: lightgreen; font-size: 1.0em;"> @Model.MonsterType</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
 
-  
+    <div class="overflow-auto" style="height:300px;">
 
-    <div class="card-body p-1 px-3 row">
-        <div class="col-6">
-            <span class="badge p-3 border w-100" style="background-color:lavenderblush"> TEKST</span>
-        </div>
-        <div class="col-6 border-0">
-            <span class="badge p-3 border w-100" style="background-color:aliceblue"> TEKSt</span>
-        </div>
+
+        @foreach (var item in Model.BattleLogger)
+        {
+            <p id="b" class="text-center h6 text-dark">@item.Message</p>
+        }
+       
     </div>
-
 
 
 </div>
+

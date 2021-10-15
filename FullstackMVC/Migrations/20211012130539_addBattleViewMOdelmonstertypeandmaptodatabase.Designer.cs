@@ -4,14 +4,16 @@ using FullstackMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FullstackMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211012130539_addBattleViewMOdelmonstertypeandmaptodatabase")]
+    partial class addBattleViewMOdelmonstertypeandmaptodatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,17 +93,11 @@ namespace FullstackMVC.Migrations
                     b.Property<string>("AccountNameOwner")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CharacterLevel")
-                        .HasColumnType("int");
-
                     b.Property<string>("CharacterName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Dmg")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Experience")
                         .HasColumnType("int");
 
                     b.Property<int>("GoldenCoins")
@@ -206,9 +202,6 @@ namespace FullstackMVC.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("DmgMin")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Experience")
                         .HasColumnType("int");
 
                     b.Property<int>("GoldenCoins")

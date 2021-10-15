@@ -20,10 +20,10 @@ namespace FullstackMVC.Models
         public int Dmg { get; set; }
         public int Level { get; set; }
         public int GoldenCoins { get; set; }
+        public int Experience { get; set; }
+        public int CharacterLevel { get; set; }
         public string AccountNameOwner { get; set; }
         public List<ItemModel> InventoryItemsId { get; set; }
-
-      
     }
 
 }

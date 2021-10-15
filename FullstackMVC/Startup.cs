@@ -7,6 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using FullstackMVC.Engine;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
+using System;
+
 namespace FullstackMVC
 {
     public class Startup
@@ -23,6 +26,14 @@ namespace FullstackMVC
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddHttpContextAccessor();
+
+            services.AddSession(Options =>
+            {
+                Options.IdleTimeout = TimeSpan.FromMinutes(30);
+                Options.Cookie.HttpOnly = true;
+                Options.Cookie.IsEssential = true;
+            });
 
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(
@@ -32,7 +43,7 @@ namespace FullstackMVC
             .AddDefaultTokenProviders().AddDefaultUI()  
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
         }
 
@@ -55,6 +66,7 @@ namespace FullstackMVC
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
