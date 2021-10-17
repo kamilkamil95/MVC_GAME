@@ -3,7 +3,7 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">app  List</h2>
+            <h2 class="text-primary">Map List</h2>
         </div>
         <div class="col-6 text-right">
             <a asp-controller="Map" asp-action="Create" class="btn btn-primary"> Create Map</a>
@@ -18,9 +18,7 @@
         <table class=" = table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>
-                        DisplayOrder
-                    </th>
+                 
                     <th>
                         Map
                     </th>
@@ -30,7 +28,6 @@
                 @foreach (var item in Model)
                 {
                 <tr>
-                    <td width="20%">@item.Id</td>
                     <td width="70%">@item.Name</td>
                     <td class="text-center">
                         <div class="w-75 btn-group" role="group">

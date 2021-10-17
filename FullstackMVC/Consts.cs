@@ -10,9 +10,9 @@ namespace FullstackMVC
         public static string ImagePath = @"\images\monster\";
         public static string AdminRole = "Admin";
         public static string UserRole = "User";
-        public static string KnightImg = "Knight.png";
-        public static string MageImg = "mage.png";
-        public static string ArcherImg = "archer.png";
+        public static string KnightImg = "Knight.jpg";
+        public static string MageImg = "mage.jpg";
+        public static string ArcherImg = "archer.jpg";
         public static string SessionCart = " GameSession";
     }
 

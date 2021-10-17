@@ -1,9 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @using FullstackMVC.Utility
 @using FullstackMVC.Data
+@using FullstackMVC.Engine
 
 @inject IHttpContextAccessor HttpContextAccessor
 @inject ApplicationDbContext _db
+
 
 
 
@@ -41,15 +43,17 @@
                     @{
                         if (User.IsInRole(Consts.UserRole))
                         {
-                           var currentUser = _db.ApplicationUserModel.FirstOrDefault(x => x.UserName == User.Identity.Name);
-                            currentUser.Character = _db.CharacterModel.FirstOrDefault(x => x.Id == currentUser.CharacterId);
+                            var currentUser = _db.ApplicationUserModel.FirstOrDefault(x => x.UserName == User.Identity.Name);
+                            if (currentUser.Character != null)
+                            {
+                                currentUser.Character = _db.CharacterModel.FirstOrDefault(x => x.Id == currentUser.CharacterId);
+                                int expNeededToLevelUp = LevelProperties.CalculateExpNeededToLevelUp(currentUser.Character.Experience);
+                                @expNeededToLevelUp <i> / </i> @currentUser.Character.Experience; <i class="fas fa-arrow-up " style="padding-left:25px; padding-right:10px"></i>
+                                @currentUser.Character.GoldenCoins <i class="fas fa-coins" style="padding-left:25px; padding-right:10px;"></i>
+                                <i>Lv.</i> @currentUser.Character.Level;
+                            }
 
-                            @currentUser.Character.Experience <i class="fas fa-arrow-up " style="padding-left:25px; padding-right:10px"></i>
-                            @currentUser.Character.GoldenCoins <i class="fas fa-coins" style="padding-left:25px; padding-right:10px;"></i>
-                            <i>Lv.</i> @currentUser.Character.Level;
                         }
-
-
                     }
 
                     <ul class="navbar-nav flex-grow-1">

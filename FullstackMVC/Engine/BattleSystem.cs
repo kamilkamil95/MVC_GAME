@@ -76,7 +76,7 @@ namespace FullstackMVC.Engine
                 ImageMonster = _monster.Image,
                 Map = _monster.MapModel.Name,
                 MonsterType = _monster.MonsterTypeModel.Name,
-                ImageUser = $"{_user.Character.Job}.png",
+                ImageUser = $"{_user.Character.Job}.jpg",
                 BattleLogger = _battleLoggerList,
                 FightStatus = _fightStatus,
                 ExperienceMonster = Experience,

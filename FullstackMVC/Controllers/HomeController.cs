@@ -58,8 +58,8 @@ namespace FullstackMVC.Controllers
 
             currentUser.Character.GoldenCoins =  currentUser.Character.GoldenCoins + BattleViewModel.GoldenCoins;
             currentUser.Character.Experience = currentUser.Character.Experience + BattleViewModel.ExperienceMonster;
-          //  int currentExperience = LevelUpdater.CalculateLevel(currentUser.Character.Experience);
-          //  currentUser.Character.Level = currentExperience;
+            int currentExperience = LevelProperties.CalculateLevel(currentUser.Character.Experience);
+            currentUser.Character.Level = currentExperience;
 
             _db.Update(
                 currentUser.Character                
