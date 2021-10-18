@@ -14,6 +14,7 @@ namespace FullstackMVC
         public static string MageImg = "mage.jpg";
         public static string ArcherImg = "archer.jpg";
         public static string SessionCart = " GameSession";
+        public static int DeathPenalty = 20;
     }
 
     public static class LevelSetter

@@ -40,8 +40,8 @@ namespace FullstackMVC.Engine
                 if (UserHp <= 0)
                 {
                     _battleloggerStorage.Add("Monster Won");
-                    Experience = 0;
-                    Gold =  0;
+                    Experience = - _monster.Experience*Consts.DeathPenalty;
+                    Gold = -_monster.GoldenCoins* Consts.DeathPenalty;
                     break;
                 }
                 if (MonsterHp >= 0)
@@ -65,8 +65,7 @@ namespace FullstackMVC.Engine
                     Message = item
                 });
             }
-
-           
+       
             return new BattleViewModel()
             {
                 CharacterName = _user.Character.CharacterName,
